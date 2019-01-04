@@ -1,14 +1,21 @@
 using System;
 using Xunit;
+using ValidationCheck;
 
 namespace CheckValidation.Tests
 {
-    public class UnitTest1
+    public class CreateInstanceTests
     {
         [Fact]
-        public void Test1()
+        public void CreateInstaceOfIs()
         {
+            Assert.IsType<Check>(Check.Is);
+        }
 
+        [Fact]
+        public void CreateInstanceOfIsNot()
+        {
+            Assert.IsType<Check>(Check.IsNot);
         }
     }
 }
