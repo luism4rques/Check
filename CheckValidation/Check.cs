@@ -1,27 +1,75 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ValidationCheck
 {
+    // public static class InstanceOfCheck{
+    //     public Check check {
+    //         get; set;
+    //     }
+    // }
+
     public class Check
     {
         private TypeOfCheck _typeOfCheck;
-        public bool _value;
 
-        private Check(){}
+        //_value deve ser nullable
+        public bool _value;
+        public string _msg;
+
+        public IList<Result> _lstResult;
+
+        private Check() {}
+
+        private Check(TypeOfCheck typeOfCheck) {
+            _lstResult = new List<Result>();
+            _typeOfCheck = typeOfCheck;
+        }
+
+        private Check(IList<Result> lstResult) {
+            _lstResult = lstResult;
+        }
 
         public static Check Is {
             get {
-                var check = new Check();
-                check._typeOfCheck = TypeOfCheck.Is;
+                var check = new Check(TypeOfCheck.Is);
                 return check;
             }
         }
 
         public static Check IsNot{
             get {
-                var check = new Check();
-                check._typeOfCheck = TypeOfCheck.IsNot;
+                var check = new Check(TypeOfCheck.IsNot);
                 return check;
+            }
+        }
+
+        private bool GetValue() {
+            
+            if(_typeOfCheck == TypeOfCheck.Is)
+                return _value;
+
+            return !_value;
+        }
+
+        public Check AndIs{
+            get {
+                _lstResult.Add(new Result(){ Value = GetValue(), Msg = _msg});
+                _msg = string.Empty;
+                _value = false;
+                _typeOfCheck = TypeOfCheck.Is;
+                return this;
+            }
+        }
+
+        public Check AndIsNot{
+            get {
+                _lstResult.Add(new Result(){ Value = GetValue(), Msg = _msg});
+                _msg = string.Empty;
+                _value = false;
+                _typeOfCheck = TypeOfCheck.IsNot;
+                return this;
             }
         }
 
@@ -31,12 +79,26 @@ namespace ValidationCheck
 //3. Deve ser chamado o Validate() ou And()
 // Regra todas as validações devem ser feitas com base nas propriedades da classe, ex: if _result = vazio e if _message = vazio
 
+        public bool IsValid()
+        {
+            _lstResult.Add(new Result(){ Value = GetValue(), Msg = _msg});
+            // var lastValue = _lstResult.LastOrDefault()?.Value;
+
+            // if(lastValue.HasValue)
+            //     _value = _value && lastValue.Value;
+
+            // if(_typeOfCheck == TypeOfCheck.Is)
+            //     return _value;
+
+            // return !_value;
+            //return GetValue();
+            var result = _lstResult.FirstOrDefault(o => o.Value == false);
+            return result == null ? true : false;
+        }   
+
         public bool Validate()
         {
-            if(_typeOfCheck == TypeOfCheck.Is)
-                return _value;
-
-            return !_value;
+            return false;
         }
     }
 }
