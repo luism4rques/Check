@@ -6,6 +6,13 @@ namespace CheckValidation.Tests
 {
     public class CreateInstanceTests
     {
+        // [Fact]
+        // public void Instantiate()
+        // {
+        //     var instance = new Check();
+        //     Assert.IsType<Check>(instance);
+        // }
+
         [Fact]
         public void CreateInstaceOfIs()
         {
