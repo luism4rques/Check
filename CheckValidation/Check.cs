@@ -4,12 +4,6 @@ using System.Linq;
 
 namespace ValidationCheck
 {
-    // public static class InstanceOfCheck{
-    //     public Check check {
-    //         get; set;
-    //     }
-    // }
-
     public class Check
     {
         private TypeOfCheck _typeOfCheck;
@@ -17,7 +11,6 @@ namespace ValidationCheck
         //_value deve ser nullable
         public bool _value;
         public string _msg;
-
         public IList<Result> _lstResult;
 
         private Check() {}
@@ -27,31 +20,9 @@ namespace ValidationCheck
             _typeOfCheck = typeOfCheck;
         }
 
-        private Check(IList<Result> lstResult) {
-            _lstResult = lstResult;
-        }
-
-        public static Check Is {
-            get {
-                var check = new Check(TypeOfCheck.Is);
-                return check;
-            }
-        }
-
-        public static Check IsNot{
-            get {
-                var check = new Check(TypeOfCheck.IsNot);
-                return check;
-            }
-        }
-
-        private bool GetValue() {
-            
-            if(_typeOfCheck == TypeOfCheck.Is)
-                return _value;
-
-            return !_value;
-        }
+        public static Check Is => new Check(TypeOfCheck.Is);
+        public static Check IsNot => new Check(TypeOfCheck.IsNot);
+        private bool GetValue() => _typeOfCheck == TypeOfCheck.Is ? _value : !_value;
 
         public Check AndIs{
             get {
@@ -82,19 +53,9 @@ namespace ValidationCheck
         public bool IsValid()
         {
             _lstResult.Add(new Result(){ Value = GetValue(), Msg = _msg});
-            // var lastValue = _lstResult.LastOrDefault()?.Value;
-
-            // if(lastValue.HasValue)
-            //     _value = _value && lastValue.Value;
-
-            // if(_typeOfCheck == TypeOfCheck.Is)
-            //     return _value;
-
-            // return !_value;
-            //return GetValue();
             var result = _lstResult.FirstOrDefault(o => o.Value == false);
             return result == null ? true : false;
-        }   
+        }
 
         public bool Validate()
         {
