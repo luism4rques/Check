@@ -34,18 +34,18 @@ namespace ValidationCheck
 
         public bool Value {
             set {
-                if(_value != null) throw new Exception("The validation has declared two times.");
+                if(_value != null) throw new Exception("The validation has declared two times."); //Test
                 _value = value;
             }
             get { 
-                if(_value == null) throw new Exception("The validation must be declared.");
+                if(_value == null) throw new Exception("The validation must be declared."); //Test
                 return _typeOfCheck == TypeOfCheck.Is ? _value.Value : !_value.Value;
             }
         }
 
         public string Msg {
             set {
-                if(_msg != null) throw new Exception("The msg has declared two times.");
+                if(_msg != null) throw new Exception("The msg has declared two times."); //Test
                 _msg = value;
             }
             get => _msg;
@@ -75,7 +75,7 @@ namespace ValidationCheck
 
         public bool Validate()
         {
-            return false;
+            throw new NotImplementedException("");
         }
     }
 }

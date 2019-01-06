@@ -4,7 +4,7 @@ using ValidationCheck;
 
 namespace CheckValidation.Tests
 {
-    public class CreateInstanceTests
+    public class CheckTests
     {
         [Fact]
         public void CreateInstaceOfIs()
