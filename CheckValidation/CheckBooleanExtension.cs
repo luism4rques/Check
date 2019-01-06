@@ -5,8 +5,7 @@ namespace ValidationCheck
     {
         public static Check True(this Check check, bool value)
         {
-            //Verificar se já foi setado algum valor, caso já tenha sido, retornar Exception
-            check._value = value;
+            check.Value = value;
             return check;
         }
     }

@@ -7,10 +7,10 @@ namespace ValidationCheck
     public class Check
     {
         private TypeOfCheck _typeOfCheck;
-        public bool? _value;
+        private bool? _value;
         public string _msg;
         public IList<Result> _lstResult;
-        
+
         private Check() {}
 
         private Check(TypeOfCheck typeOfCheck) {
@@ -29,9 +29,12 @@ namespace ValidationCheck
         public static Check IsNot => new Check(TypeOfCheck.IsNot);
 
         public bool Value {
+            set {
+                if(_value != null) throw new Exception("The validation has declared two times.");
+                _value = value;
+            }
             get { 
                 if(_value == null) throw new Exception("The validation must be declared.");
-
                 return _typeOfCheck == TypeOfCheck.Is ? _value.Value : !_value.Value;
             }
         }
@@ -51,12 +54,6 @@ namespace ValidationCheck
                 return this;
             }
         }
-
-//Verificar a ordem
-//1. Deve ser definida a condição ex: True()
-//2. Caso a condição não tenha sido definida com Message, deve ser chamado o metodo With("")
-//3. Deve ser chamado o Validate() ou And()
-// Regra todas as validações devem ser feitas com base nas propriedades da classe, ex: if _result = vazio e if _message = vazio
 
         public bool IsValid()
         {
