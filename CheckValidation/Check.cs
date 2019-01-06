@@ -8,8 +8,8 @@ namespace ValidationCheck
     {
         private TypeOfCheck _typeOfCheck;
         private bool? _value;
-        public string _msg;
-        public IList<Result> _lstResult;
+        private string _msg;
+        private IList<Result> _lstResult;
 
         private Check() {}
 
@@ -37,6 +37,14 @@ namespace ValidationCheck
                 if(_value == null) throw new Exception("The validation must be declared.");
                 return _typeOfCheck == TypeOfCheck.Is ? _value.Value : !_value.Value;
             }
+        }
+
+        public string Msg {
+            set {
+                if(_msg != null) throw new Exception("The msg has declared two times.");
+                _msg = value;
+            }
+            get => _msg;
         }
 
         public Check AndIs {

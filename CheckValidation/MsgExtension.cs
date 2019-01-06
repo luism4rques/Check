@@ -5,7 +5,7 @@ namespace ValidationCheck
     {
         public static Check Msg(this Check check, string msg)
         {
-            check._msg = msg;
+            check.Msg = msg;
             return check;
         }
     }
