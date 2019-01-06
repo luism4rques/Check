@@ -18,10 +18,14 @@ namespace ValidationCheck
             _typeOfCheck = typeOfCheck;
         }
 
-        private void ClearCurrentCheck(TypeOfCheck typeOfCheck) {
+        private void Clear(TypeOfCheck newTypeOfCheck) {
             _value = null;
             _msg = null;
-            _typeOfCheck = typeOfCheck;
+            _typeOfCheck = newTypeOfCheck;
+        }
+
+        private void Save(){
+            _lstResult.Add(new Result(Value, _msg));
         }
 
         public static Check Is => new Check(TypeOfCheck.Is);
@@ -49,25 +53,24 @@ namespace ValidationCheck
 
         public Check AndIs {
             get {
-                _lstResult.Add(new Result(Value, _msg));
-                ClearCurrentCheck(TypeOfCheck.Is);
+                Save();
+                Clear(TypeOfCheck.Is);
                 return this;
             }
         }
 
         public Check AndIsNot {
             get {
-                _lstResult.Add(new Result(Value, _msg));
-                ClearCurrentCheck(TypeOfCheck.IsNot);
+                Save();
+                Clear(TypeOfCheck.IsNot);
                 return this;
             }
         }
 
         public bool IsValid()
         {
-            _lstResult.Add(new Result(Value, _msg));
-            var result = _lstResult.FirstOrDefault(o => o.Value == false);
-            return result == null ? true : false;
+            Save();
+            return !_lstResult.Any(o => o.Value == false);
         }
 
         public bool Validate()
