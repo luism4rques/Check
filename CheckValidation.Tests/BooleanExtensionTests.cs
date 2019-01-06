@@ -7,23 +7,31 @@ namespace CheckValidation.Tests
     public class BooleanExtensionTests
     {
         [Fact]
-        public void IsTrueTest()
+        public void IsBoolMustBeTrue()
         {
             var result = Check.Is.True(true).IsValid();
             Assert.True(result);
+        }
 
-            result = Check.Is.True(false).IsValid();
+        [Fact]
+        public void IsBoolMustBeFalse()
+        {
+            var result = Check.Is.True(false).IsValid();
             Assert.False(result);
         }
 
         [Fact]
-        public void IsNotTrueTest()
+        public void IsNotBoolMustBeTrue()
+        {
+            var result = Check.IsNot.True(false).IsValid();
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsNotBoolMustBeFalse()
         {
             var result = Check.IsNot.True(true).IsValid();
             Assert.False(result);
-
-            result = Check.IsNot.True(false).IsValid();
-            Assert.True(result);
         }
 
         [Fact]
