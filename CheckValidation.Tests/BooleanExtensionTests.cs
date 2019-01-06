@@ -11,6 +11,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(true).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.Is.True(()=>true).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Fact]
@@ -18,6 +21,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(false).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.Is.True(()=>false).IsValid();
+            Assert.False(resultFunc);
         }
 
         [Fact]
@@ -25,6 +31,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(false).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.IsNot.True(()=>false).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Fact]
@@ -32,6 +41,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(true).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.IsNot.True(()=>true).IsValid();
+            Assert.False(resultFunc);
         }
 
         [Fact]
@@ -39,6 +51,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(true).AndIs.True(true).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.Is.True(()=>true).AndIs.True(()=>true).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Theory]
@@ -49,6 +64,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(val1).AndIs.True(val2).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.Is.True(()=>true).AndIs.True(()=>true).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Fact]
@@ -56,6 +74,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(true).AndIsNot.True(false).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.Is.True(()=>true).AndIsNot.True(()=>false).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Theory]
@@ -66,6 +87,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.Is.True(val1).AndIsNot.True(val2).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.Is.True(()=>val1).AndIsNot.True(()=>val2).IsValid();
+            Assert.False(resultFunc);
         }
 
         [Fact]
@@ -73,6 +97,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(false).AndIs.True(true).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.IsNot.True(()=>false).AndIs.True(()=>true).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Theory]
@@ -83,6 +110,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(val1).AndIs.True(val2).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.IsNot.True(()=>val1).AndIs.True(()=>val2).IsValid();
+            Assert.False(resultFunc);
         }
 
         [Fact]
@@ -90,6 +120,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(false).AndIsNot.True(false).IsValid();
             Assert.True(result);
+
+            var resultFunc = Check.IsNot.True(()=>false).AndIsNot.True(()=>false).IsValid();
+            Assert.True(resultFunc);
         }
 
         [Theory]
@@ -100,6 +133,9 @@ namespace CheckValidation.Tests
         {
             var result = Check.IsNot.True(val1).AndIsNot.True(val2).IsValid();
             Assert.False(result);
+
+            var resultFunc = Check.IsNot.True(()=>val1).AndIsNot.True(()=>val2).IsValid();
+            Assert.False(resultFunc);
         }
     }
 }
