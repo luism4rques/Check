@@ -17,5 +17,7 @@ namespace CheckValidation.Tests
         {
             Assert.IsType<Check>(Check.IsNot);
         }
+
+        
     }
 }

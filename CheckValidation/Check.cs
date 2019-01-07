@@ -73,6 +73,14 @@ namespace ValidationCheck
             return !_lstResult.Any(o => o.Value == false);
         }
 
+        public void Throw() //Test
+        {
+            if(IsValid()) return;
+
+            var msg = _lstResult.LastOrDefault(o => o.Msg != null).Msg;
+            throw new Exception(msg);
+        }
+
         public bool Validate()
         {
             throw new NotImplementedException("");
