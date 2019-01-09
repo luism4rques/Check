@@ -38,7 +38,7 @@ namespace ValidationCheck
                 _value = value;
             }
             get { 
-                if(_value == null) throw new Exception("The validation must be declared."); //Test
+                if(_value == null) throw new Exception("The validation must be declared.");
                 return _typeOfCheck == TypeOfCheck.Is ? _value.Value : !_value.Value;
             }
         }

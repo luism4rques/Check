@@ -21,15 +21,22 @@ namespace CheckValidation.Tests
         [Fact]
         public void SetValueTwoTimesMustThrowException()
         {
-            Exception ex = Assert.Throws<Exception>(()=> Check.Is.True(false).True(false));
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.True(false).True(false));
             Assert.Equal("The validation has declared two times.", ex.Message);
         }
 
         [Fact]
         public void SetMsgTwoTimesMustThrowException()
         {
-            Exception ex = Assert.Throws<Exception>(()=> Check.Is.Msg("").Msg(""));
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.Msg("").Msg(""));
             Assert.Equal("The msg has declared two times.", ex.Message);
+        }
+
+        [Fact]
+        public void IsValidWithoutValueMustThrowException()
+        {
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.IsValid());
+            Assert.Equal("The validation must be declared.", ex.Message);
         }
     }
 }
