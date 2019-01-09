@@ -18,6 +18,13 @@ namespace CheckValidation.Tests
             Assert.IsType<Check>(Check.IsNot);
         }
 
+        [Fact]
+        public void SetValueTwoTimesMustThrowException()
+        {
+            Exception ex = Assert.Throws<Exception>(()=> Check.Is.True(false).True(false));
+            Assert.Equal("The validation has declared two times.", ex.Message);
+        }
+
         
     }
 }
