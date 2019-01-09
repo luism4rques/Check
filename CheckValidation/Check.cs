@@ -79,7 +79,7 @@ namespace ValidationCheck
             
             string msg = string.Empty;
             
-            _lstResult.ToList().Where(o => o.Value == false).ToList().ForEach(o => 
+            _lstResult.ToList().Where(o => !o.Value).ToList().ForEach(o => 
             {
                 if(o.Msg != null)
                     msg = (msg == string.Empty ? o.Msg : msg + " \n " + o.Msg);
