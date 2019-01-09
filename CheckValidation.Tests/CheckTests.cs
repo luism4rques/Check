@@ -38,5 +38,31 @@ namespace CheckValidation.Tests
             Exception ex = Assert.Throws<Exception>(() => Check.Is.IsValid());
             Assert.Equal("The validation must be declared.", ex.Message);
         }
+
+        [Fact]
+        public void ThrowWithInvalidConditionMostThrowExceptionWithoutMessage()
+        {
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.True(false).Throw());
+            Assert.Equal(string.Empty, ex.Message);
+        }
+
+        [Theory]
+        [InlineData(false, "MSG1")]
+        [InlineData(false, "")]
+        public void ThrowWithInvalidConditionMostThrowExceptionWithOneMessage(bool val, string msg)
+        {
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.True(val).Msg(msg).Throw());
+            Assert.Equal(msg, ex.Message);
+        }
+
+        [Theory]
+        [InlineData(false, "MSG1", false, "MSG2")]
+        [InlineData(false, "", false, "")]
+        public void ThrowWithInvalidConditionMostThrowExceptionWithTwoMessage(bool val1, string msg1, bool val2, string msg2)
+        {
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.True(val1).Msg(msg1).AndIs.True(val2).Msg(msg2).Throw());
+            Assert.Contains(msg1, ex.Message);
+            Assert.Contains(msg2, ex.Message);
+        }
     }
 }

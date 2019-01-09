@@ -73,11 +73,18 @@ namespace ValidationCheck
             return !_lstResult.Any(o => o.Value == false);
         }
 
-        public void Throw() //Test
+        public void Throw()
         {
             if(IsValid()) return;
+            
+            string msg = string.Empty;
+            
+            _lstResult.ToList().Where(o => o.Value == false).ToList().ForEach(o => 
+            {
+                if(o.Msg != null)
+                    msg = (msg == string.Empty ? o.Msg : msg + " \n " + o.Msg);
+            });
 
-            var msg = _lstResult.LastOrDefault(o => o.Msg != null).Msg;
             throw new Exception(msg);
         }
 
