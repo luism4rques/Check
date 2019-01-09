@@ -46,6 +46,7 @@ namespace ValidationCheck
         public string Msg {
             set {
                 if(_msg != null) throw new Exception("The msg has declared two times.");
+                if(value == null) throw new Exception("The msg can't be null.");
                 _msg = value;
             }
             get => _msg;

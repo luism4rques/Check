@@ -33,6 +33,13 @@ namespace CheckValidation.Tests
         }
 
         [Fact]
+        public void SetMsgNullMustThrowException()
+        {
+            Exception ex = Assert.Throws<Exception>(() => Check.Is.Msg(null));
+            Assert.Equal("The msg can't be null.", ex.Message);
+        }
+
+        [Fact]
         public void IsValidWithoutValueMustThrowException()
         {
             Exception ex = Assert.Throws<Exception>(() => Check.Is.IsValid());
