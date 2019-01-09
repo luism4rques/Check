@@ -25,6 +25,11 @@ namespace CheckValidation.Tests
             Assert.Equal("The validation has declared two times.", ex.Message);
         }
 
-        
+        [Fact]
+        public void SetMsgTwoTimesMustThrowException()
+        {
+            Exception ex = Assert.Throws<Exception>(()=> Check.Is.Msg("").Msg(""));
+            Assert.Equal("The msg has declared two times.", ex.Message);
+        }
     }
 }

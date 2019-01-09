@@ -34,7 +34,7 @@ namespace ValidationCheck
 
         public bool Value {
             set {
-                if(_value != null) throw new Exception("The validation has declared two times."); //Test
+                if(_value != null) throw new Exception("The validation has declared two times.");
                 _value = value;
             }
             get { 
@@ -45,7 +45,7 @@ namespace ValidationCheck
 
         public string Msg {
             set {
-                if(_msg != null) throw new Exception("The msg has declared two times."); //Test
+                if(_msg != null) throw new Exception("The msg has declared two times.");
                 _msg = value;
             }
             get => _msg;
