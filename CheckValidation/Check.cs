@@ -34,19 +34,27 @@ namespace ValidationCheck
 
         public bool Value {
             set {
-                if(_value != null) throw new Exception("The validation has declared two times.");
+                if(_value != null) 
+                    throw new Exception("The validation has declared two times.");
+                
                 _value = value;
             }
             get { 
-                if(_value == null) throw new Exception("The validation must be declared.");
+                if(_value == null) 
+                    throw new Exception("The validation must be declared.");
+                
                 return _typeOfCheck == TypeOfCheck.Is ? _value.Value : !_value.Value;
             }
         }
 
         public string Msg {
             set {
-                if(_msg != null) throw new Exception("The msg has declared two times.");
-                if(value == null) throw new Exception("The msg can't be null.");
+                if(_msg != null) 
+                    throw new Exception("The msg has declared two times.");
+
+                if(value == null) 
+                    throw new Exception("The msg can't be null.");
+
                 _msg = value;
             }
             get => _msg;
@@ -76,8 +84,24 @@ namespace ValidationCheck
 
         public void Throw()
         {
-            if(IsValid()) return;
+            if(IsValid()) 
+                return;
             
+            var msg = GetFullMsg();
+            throw new Exception(msg);
+        }
+
+        public void Throw<TException>() where TException : Exception, new()
+        {
+            if(IsValid()) 
+                return;
+            
+            var msg = GetFullMsg();
+            var ex = (TException)Activator.CreateInstance(typeof(TException), new object[] { msg });
+            throw ex;
+        }
+
+        private string GetFullMsg(){
             string msg = string.Empty;
             
             _lstResult.ToList().Where(o => !o.Value).ToList().ForEach(o => 
@@ -86,7 +110,7 @@ namespace ValidationCheck
                     msg = (msg == string.Empty ? o.Msg : msg + " \n " + o.Msg);
             });
 
-            throw new Exception(msg);
+            return msg;
         }
 
         public bool Validate()

@@ -71,5 +71,18 @@ namespace CheckValidation.Tests
             Assert.Contains(msg1, ex.Message);
             Assert.Contains(msg2, ex.Message);
         }
+
+        private class MyException : Exception { 
+            public MyException(){}
+            public MyException(string message):base(message){}
+        }
+
+        [Fact]
+        public void ThrowWithCustomException()
+        {
+            var ex = Assert.Throws<MyException>(() => Check.Is.True(false).Msg("MSG1").Throw<MyException>());
+            Assert.IsType<MyException>(ex);
+            Assert.Contains("MSG1", ex.Message);
+        }
     }
 }
