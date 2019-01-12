@@ -25,7 +25,7 @@ namespace ValidationCheck
         }
 
         private void Save(){
-            _lstResult.Add(new Result(Value, _msg));
+            _lstResult.Add(new Result(Value, Msg));
         }
 
         public static Check Is => new Check(TypeOfCheck.Is);
